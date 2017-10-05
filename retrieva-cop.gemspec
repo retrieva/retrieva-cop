@@ -6,12 +6,12 @@ require "retrieva/cop/version"
 Gem::Specification.new do |spec|
   spec.name          = "retrieva-cop"
   spec.version       = Retrieva::Cop::VERSION
-  spec.authors       = ["kei-s"]
-  spec.email         = ["kei.shiratsuchi@gmail.com"]
+  spec.authors       = ["Kei Shiratsuchi"]
+  spec.email         = ["kei.shiratsuchi@retrieva.jp"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{RetrievaCop is a RuboCop configuration gem.}
+  spec.description   = %q{RetrievaCop is a RuboCop configuration gem.}
+  spec.homepage      = "https://github.com/retrieva/retrieva-cop"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "rubocop", "~> 0.50.0"
+  spec.add_dependency "rubocop-rspec", ">= 1.18.0"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
 end
