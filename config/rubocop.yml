@@ -15,9 +15,30 @@ AllCops:
 Layout/DotPosition:
   EnforcedStyle: trailing
 
+# 桁揃えが綺麗にならないことが多いので migration は除外
+Layout/ExtraSpacing:
+  Exclude:
+    - "db/migrate/*.rb"
+
 # メソッドチェーン感がより感じられるインデントにする
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
+
+#################### Lint ##################################
+
+# Style/EmptyCaseCondition と同じく網羅の表現力が empty when を認めた方が高いし、
+# 頻出する対象を最初の when で撥ねるのはパフォーマンス向上で頻出する。
+# また、
+#   case foo
+#   when 42
+#     # nop
+#   when 1..100
+#     ...
+#   end
+# と、下の when がキャッチしてしまう場合等に対応していない。
+# See. http://tech.sideci.com/entry/2016/11/01/105900
+Lint/EmptyWhen:
+  Enabled: false
 
 #################### Metrics ###############################
 
@@ -25,6 +46,21 @@ Layout/MultilineMethodCallIndentation:
 # リリースごとに 3 ずつぐらい下げていきます。20 まで下げたい。
 Metrics/AbcSize:
   Max: 24
+
+# Gemfile, Guardfile は DSL 的で基本的に複雑にはならないので除外
+# rake, rspec, environments, routes は巨大な block 不可避なので除外
+# TODO: ExcludedMethods の精査
+Metrics/BlockLength:
+  Exclude:
+    - "Rakefile"
+    - "**/*.rake"
+    - "spec/**/*.rb"
+    - "Gemfile"
+    - "Guardfile"
+    - "config/environments/*.rb"
+    - "config/routes.rb"
+    - "config/routes/**/*.rb"
+    - "*.gemspec"
 
 # 6 は強すぎるので緩める
 Metrics/CyclomaticComplexity:
@@ -73,6 +109,12 @@ Style/DoubleNegation:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+# rake タスクの順序の hash は rocket を許可する
+Style/HashSyntax:
+  Exclude:
+    - "**/*.rake"
+    - "Rakefile"
+
 # 特に model 内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
 Style/RedundantSelf:
   Enabled: false
@@ -81,6 +123,7 @@ Style/RedundantSelf:
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%w': '()'
+    '%i': '()'
 
 # 1_000_000 と区切り文字が 2 個以上必要になる場合のみ _ 区切りを必須にする
 # 10_000_00 は許可しない。(これは例えば 10000 ドルをセント単位にする時に便利だが
@@ -93,6 +136,18 @@ Style/NumericLiterals:
 # foo.zero? は許可したいけどメソッドごとに指定できないので一括で disable に
 Style/NumericPredicate:
   Enabled: false
+
+# spec 内は見た目が綺麗になるので許可
+Style/Semicolon:
+  Exclude:
+    - "spec/**/*"
+
+# * 式展開したい場合に書き換えるのが面倒
+# * 文章ではダブルクォートよりもシングルクォートの方が頻出する
+# ことから EnforcedStyle: double_quotes 推奨
+Style/StringLiterals:
+  Exclude:
+    - "db/migrate/*"
 
 # 条件式で arr.size > 0 が使われた時に
 #   if !arr.empty?
