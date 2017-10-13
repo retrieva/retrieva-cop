@@ -6,6 +6,10 @@ AllCops:
     - "vendor/**/*" # rubocop config/default.yml
     - "db/schema.rb"
     - "node_modules/**/*"
+    - "config.ru"
+    - "config/puma.rb"
+    - "config/unicorn.rb"
+    - "Capfile"
   DisplayCopNames: true
 
 #################### Layout ################################
@@ -23,6 +27,16 @@ Layout/ExtraSpacing:
 # メソッドチェーン感がより感じられるインデントにする
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
+
+# Rails の生成するファイルに存在するので除外
+Layout/SpaceInsideBrackets:
+  Exclude:
+    - "config/environments/*"
+
+# Rails の生成するファイルに存在するので除外
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Exclude:
+    - "config/initializers/*"
 
 #################### Lint ##################################
 
@@ -84,6 +98,11 @@ Metrics/MethodLength:
 Style/AsciiComments:
   Enabled: false
 
+# RSpec の生成するファイルに存在するので除外
+Style/BlockComments:
+  Exclude:
+    - "spec/spec_helper.rb"
+
 # do .. end から更にメソッドチェーンすると見づらいので
 # auto-correct せず、自分で修正する
 # spec 内は見た目が綺麗になるので許可
@@ -105,6 +124,11 @@ Style/Documentation:
 Style/DoubleNegation:
   Enabled: false
 
+# 空メソッドの場合だけ1行で書かなければいけない理由が無い
+# 「セミコロンは使わない」に寄せた方がルールがシンプル
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
 # まだ対応するには早い
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -115,9 +139,18 @@ Style/HashSyntax:
     - "**/*.rake"
     - "Rakefile"
 
+# 条件式の方を意識させたい場合には後置の if/unless を使わない方が分かりやすい
+Style/IfUnlessModifier:
+  Enabled: false
+
 # 特に model 内において、ローカル変数とメソッド呼び出しの区別をつけた方が分かりやすい場合が多い
 Style/RedundantSelf:
   Enabled: false
+
+# 以下のような rescue はそもそも raise して良いのかチェックするべきなので、AutoCorrect しない
+#   something rescue nil
+Style/RescueModifier:
+  AutoCorrect: false
 
 # Rubocop は %w[] を押すが、%w() で問題ないとする
 Style/PercentLiteralDelimiters:
@@ -137,6 +170,10 @@ Style/NumericLiterals:
 Style/NumericPredicate:
   Enabled: false
 
+# 無理して使うモンじゃない
+Style/SafeNavigation:
+  Enabled: false
+
 # spec 内は見た目が綺麗になるので許可
 Style/Semicolon:
   Exclude:
@@ -148,6 +185,10 @@ Style/Semicolon:
 Style/StringLiterals:
   Exclude:
     - "db/migrate/*"
+
+# AutoCorrect すると .to_s するが、実際には .to_s が必要ない場合が多いので、手動で行う
+Style/UnneededInterpolation:
+  AutoCorrect: false
 
 # 条件式で arr.size > 0 が使われた時に
 #   if !arr.empty?

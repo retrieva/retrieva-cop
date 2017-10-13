@@ -1,5 +1,9 @@
 require: "rubocop-rspec"
 
+# feature spec で scenario を使っても良い
+Capybara/FeatureMethods:
+  Enabled: false
+
 # 短い subject は一行で書いて良い
 RSpec/EmptyLineAfterSubject:
   Enabled: false
