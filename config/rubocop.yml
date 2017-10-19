@@ -94,6 +94,10 @@ Metrics/MethodLength:
 
 #################### Style #################################
 
+# redirect_to xxx and return のイディオムを維持したい
+Style/AndOr:
+  EnforcedStyle: conditionals
+
 # 日本語のコメントを許可する
 Style/AsciiComments:
   Enabled: false
@@ -156,6 +160,7 @@ Style/RescueModifier:
 Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%w': '()'
+    '%W': '()'
     '%i': '()'
 
 # 1_000_000 と区切り文字が 2 個以上必要になる場合のみ _ 区切りを必須にする
