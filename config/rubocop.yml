@@ -24,6 +24,11 @@ Layout/ExtraSpacing:
   Exclude:
     - "db/migrate/*.rb"
 
+# RuntimeError は「特定の Error を定義できない場合」なので、
+# 定義できるエラーは RuntimeError ではなく StandardError を継承する。
+Lint/InheritException:
+  EnforcedStyle: standard_error
+
 # メソッドチェーン感がより感じられるインデントにする
 Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
@@ -202,4 +207,12 @@ Style/UnneededInterpolation:
 # に修正されるのが嫌。
 # 中身を入れ替えて否定外しても良いんだけど、どちらが例外的な処理なのかが分かりづらくなる。
 Style/ZeroLengthPredicate:
+  Enabled: false
+
+#################### Security ##############################
+
+# 毎回 YAML.safe_load(yaml_str, [Date, Time]) するのは面倒で。。
+# YAML ファイル内で &default のようなエイリアスを(簡単に)使えなくなるので
+# https://qiita.com/QUANON/items/f07004c030824d2b79fd
+Security/YAMLLoad:
   Enabled: false
