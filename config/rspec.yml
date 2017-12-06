@@ -31,16 +31,6 @@ RSpec/NamedSubject:
 RSpec/MultipleExpectations:
   Max: 3
 
-
-# Model
-#  `- #method
-#      |- 頻出ケースのテスト 1
-#      |- 頻出ケースのテスト 2
-#      `- レアケース
-#          |- レアケースのテスト 1
-#          `- レアケースのテスト 2
-# のように括り出すと、レアケースのテストを読み飛ばせるようになり
-# テストを読む人にやさしくなる。
-# デフォルトの 3 より少し緩めてもヨサソウ。
+# feature spec で、分岐が多くなると 4 より多くしたいことがあるので、5 まで緩める
 RSpec/NestedGroups:
-  Max: 4
+  Max: 5
