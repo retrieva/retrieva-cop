@@ -35,7 +35,7 @@ Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented_relative_to_receiver
 
 # Rails の生成するファイルに存在するので除外
-Layout/SpaceInsideBrackets:
+Layout/SpaceInsideArrayLiteralBrackets:
   Exclude:
     - "config/environments/*"
 
