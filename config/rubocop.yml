@@ -198,7 +198,7 @@ Style/StringLiterals:
     - "db/migrate/*"
 
 # AutoCorrect すると .to_s するが、実際には .to_s が必要ない場合が多いので、手動で行う
-Style/UnneededInterpolation:
+Style/RedundantInterpolation:
   AutoCorrect: false
 
 # 条件式で arr.size > 0 が使われた時に
