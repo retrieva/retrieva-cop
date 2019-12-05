@@ -8,3 +8,7 @@ Rails:
 Rails/NotNullColumn:
   Enabled: false
 
+# bin/ 以下の実行ファイルではトップレベルで include できて良い
+Style/MixinUsage:
+  Exclude:
+    - 'bin/*'

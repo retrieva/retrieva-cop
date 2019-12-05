@@ -1,8 +1,12 @@
 require: "rubocop-rspec"
 
-# feature spec で scenario を使っても良い
-Capybara/FeatureMethods:
+# 日本語だと「〜の場合」になるので suffix でないと対応できない
+RSpec/ContextWording:
   Enabled: false
+
+# subject はコピペ可搬性よりもそのまま USAGE であって欲しい
+RSpec/DescribedClass:
+  EnforcedStyle: explicit
 
 # 短い subject は一行で書いて良い
 RSpec/EmptyLineAfterSubject:
@@ -21,6 +25,12 @@ RSpec/EmptyLineAfterFinalLet:
 # ヒアドキュメント使うと一瞬で超えるので disable も検討。
 RSpec/ExampleLength:
   Max: 8
+
+# block の方がテスト対象が
+# * `{}` の前後のスペースと相まって目立つ
+# * 普段書く形と同じなので自然に脳内に入ってくる
+RSpec/ExpectChange:
+  EnforcedStyle: block
 
 # 変に名前つけて呼ぶ方が分かりづらい。
 # テスト対象メソッドを呼ぶだけの subject 以外を書かないようにする方が効く。
