@@ -12,6 +12,7 @@ AllCops:
     - "Capfile"
     - "**/*.spec"  # .spec file should be an RPM spec file not an RSpec file
   DisplayCopNames: true
+  NewCops: enable
 
 #################### Layout ################################
 
@@ -89,7 +90,7 @@ Metrics/CyclomaticComplexity:
 # * 警告 120文字
 # * 禁止 160文字
 # のイメージ
-Metrics/LineLength:
+Layout/LineLength:
   Max: 160
 
 # 20 行超えるのは migration ファイル以外滅多に無い
